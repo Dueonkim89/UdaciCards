@@ -2,6 +2,8 @@ import React from 'react';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet, Text, View, StatusBar, Platform } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
+import { white, silver, black, steelBlue, whiteSmoke } from './utils/colors.js';
+import { Constants } from 'expo';
 import Deck from './components/Deck.js';
 import NewDeck from './components/NewDeck.js';
 
@@ -10,17 +12,44 @@ const Tabs = TabNavigator({
 		screen: Deck,
 		navigationOptions: {
 			tabBarLabel: 'Decks',
-			tabBarIcon: () => 	<MaterialCommunityIcons name='cards-outline' size={30} color='red'/>
+			tabBarIcon: ({ tintColor }) => 	<MaterialCommunityIcons name='cards-outline' size={30} color={tintColor}/>
 		}					
 	},
 	NewDeck: {
 		screen: NewDeck,
 		navigationOptions: {
 			tabBarLabel: 'Add New Deck',
-			tabBarIcon: () => 	<MaterialIcons name='library-add' size={30} color='red'/>
+			tabBarIcon: ({ tintColor }) => 	<MaterialIcons name='library-add' size={30} color={tintColor}/>
+		}
+	}
+}, {
+	navigationOptions: {
+		header: null
+	},
+	tabBarOptions: {
+		activeTintColor: black, 
+		showIcon: true,
+		style: {
+			height: 56,
+			backgroundColor: silver, 
+			shadowColor: 'rgba(0, 0, 0, 0.24)',
+			shadowOffset: {
+				width: 0,
+				height: 3
+			 },
+			shadowRadius: 6,
+			shadowOpacity: 1			
 		}
 	}
 })
+
+function TheStatusBar({ backgroundColor, ...props }) {
+	return (
+		<View style={{backgroundColor, height: Constants.statusBarHeight}}>
+			<StatusBar translucent backgroundColor={backgroundColor} {...props} />
+		</View>
+	)
+}
 
 
 export default class App extends React.Component {
@@ -30,12 +59,12 @@ export default class App extends React.Component {
 	
 	render() {
 		return (
+		
 			<View style={{flex: 1}}>
+				<TheStatusBar backgroundColor={steelBlue} barStyle='light-content'/>
 				<Tabs />
 				<View style={styles.container}>
-					<Text>Open up App.js to start working on your app!</Text>
-					<Text>Changes you make will automatically reload.</Text>
-					<Text>Shake your phone to open the developer menu.</Text>
+					<Text>This is the default view!</Text>
 				</View>
 			</View>
 		);
