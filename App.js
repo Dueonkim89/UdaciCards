@@ -11,7 +11,7 @@ const Tabs = TabNavigator({
 	Deck: {
 		screen: Deck,
 		navigationOptions: {
-			tabBarLabel: 'Decks',
+			tabBarLabel: 'Deck',
 			tabBarIcon: ({ tintColor }) => 	<MaterialCommunityIcons name='cards-outline' size={30} color={tintColor}/>
 		}					
 	},
@@ -54,7 +54,7 @@ function TheStatusBar({ backgroundColor, ...props }) {
 
 export default class App extends React.Component {
 	componentDidMount() {
-		console.log(Platform.OS);
+		console.log('in App component');
 	}
 	
 	render() {
@@ -63,9 +63,6 @@ export default class App extends React.Component {
 			<View style={{flex: 1}}>
 				<TheStatusBar backgroundColor={steelBlue} barStyle='light-content'/>
 				<Tabs />
-				<View style={styles.container}>
-					<Text>This is the default view!</Text>
-				</View>
 			</View>
 		);
 	}

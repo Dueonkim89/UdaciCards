@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { fetchDeckData } from '../utils/api.js';
 
 class Deck extends React.Component {
 	
 	componentDidMount () {
-		console.log('Loaded Deck view');
+		fetchDeckData();
 	}	
 	
 	render() {
