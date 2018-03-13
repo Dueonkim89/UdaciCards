@@ -38,7 +38,6 @@ const defaultData = {
 export function fetchInitialDeck() {
 	return AsyncStorage.getItem(DECK_DATA_KEY)
 		.then((data) => { if (data === null) {
-			console.log('empty data');
 			storeDefaultData();	
 			return defaultData;
 		} else {
@@ -47,7 +46,6 @@ export function fetchInitialDeck() {
 }
 
 function storeDefaultData() {
-	console.log('storing default data');
 	AsyncStorage.setItem(DECK_DATA_KEY, JSON.stringify(defaultData));
 }
 
