@@ -35,16 +35,23 @@ const defaultData = {
   }
 }
 
-export function fetchDeckData() {
+export function fetchInitialDeck() {
 	return AsyncStorage.getItem(DECK_DATA_KEY)
 		.then((data) => { if (data === null) {
-			storeDefaultData();
-		}})
+			console.log('empty data');
+			storeDefaultData();	
+			return defaultData;
+		} else {
+			return JSON.parse(data);
+		}})				
 }
 
 function storeDefaultData() {
-	AsyncStorage.setItem(DECK_DATA_KEY, JSON.stringify(defaultData))
+	console.log('storing default data');
+	AsyncStorage.setItem(DECK_DATA_KEY, JSON.stringify(defaultData));
 }
 
-
+function deleteData() {
+	AsyncStorage.removeItem(DECK_DATA_KEY)
+}
 
