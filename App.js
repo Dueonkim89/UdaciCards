@@ -8,6 +8,7 @@ import { white, silver, black, steelBlue, whiteSmoke } from './utils/colors.js';
 import { Constants } from 'expo';
 import Deck from './components/Deck.js';
 import NewDeck from './components/NewDeck.js';
+import reducer from './reducers/index.js';
 
 const Tabs = TabNavigator({
 	Deck: {
@@ -43,7 +44,9 @@ const Tabs = TabNavigator({
 			shadowOpacity: 1			
 		}
 	}
-})
+});
+
+const store = createStore(reducer);
 
 function TheStatusBar({ backgroundColor, ...props }) {
 	return (
@@ -53,19 +56,20 @@ function TheStatusBar({ backgroundColor, ...props }) {
 	)
 }
 
-
 export default class App extends React.Component {
 	componentDidMount() {
+		//method to invoke Notification to reminder app user to study to be built here. 
 		console.log('in App component');
 	}
 	
 	render() {
 		return (
-		
-			<View style={{flex: 1}}>
-				<TheStatusBar backgroundColor={steelBlue} barStyle='light-content'/>
-				<Tabs />
-			</View>
+			<Provider store={store}>
+				<View style={{flex: 1}}>
+					<TheStatusBar backgroundColor={steelBlue} barStyle='light-content'/>
+					<Tabs />
+				</View>
+			</Provider>
 		);
 	}
 }
