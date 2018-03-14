@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import { fetchInitialDeck, DECK_DATA_KEY } from '../utils/api.js';
 import { receiveDeck } from '../actions/index.js';
+import DeckListView from './DeckListView.js';
 
 
 class Deck extends React.Component {
@@ -23,27 +24,18 @@ class Deck extends React.Component {
 	render() {
 		console.log(this.props.deck);
 		return (
-			<View style={styles.container}>
-				<Text>This is the Deck View... to be worked on!!</Text>
+			<View style={{flex: 1}}>
+				<DeckListView />
 			</View>
 		);
 	}
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 function mapStateToProps(deck) {
   return {
     deck
   }
 }
-
 
 export default connect(mapStateToProps)(Deck);
