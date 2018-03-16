@@ -1,62 +1,26 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { whiteSmoke } from '../utils/colors.js';
+import { whiteSmoke, steelBlue } from '../utils/colors.js';
 
 class DeckListView extends React.Component {
-	
-	
-	
+			
 	componentDidMount () {
 		console.log('Loaded DeckListView');
 	}
 	
 	render() {
+		const { questions, title } = this.props;
 		// make sure to include animation when touchableopacity is clicked!
 		//route to individual deck view
 		return (
 			<View style={styles.defaultView}>
-				<View>
-					<TouchableOpacity style={styles.deckButton} onPress={() => console.log('pressed') }>
-						<Text style={styles.deckTitle}>udacicards</Text>
-						<Text style={styles.numberOfCards}>3 cards</Text>
-					</TouchableOpacity>	
-				</View>
-				<View>
-					<TouchableOpacity style={styles.deckButton} onPress={() => console.log('pressed') }>
-						<Text style={styles.deckTitle}>udacicards</Text>
-						<Text style={styles.numberOfCards}>3 cards</Text>
-					</TouchableOpacity>	
-				</View>
-				<View>
-					<TouchableOpacity style={styles.deckButton} onPress={() => console.log('pressed') }>
-						<Text style={styles.deckTitle}>udacicards</Text>
-						<Text style={styles.numberOfCards}>3 cards</Text>
-					</TouchableOpacity>	
-				</View>
-				<View>
-					<TouchableOpacity style={styles.deckButton} onPress={() => console.log('pressed') }>
-						<Text style={styles.deckTitle}>udacicards</Text>
-						<Text style={styles.numberOfCards}>3 cards</Text>
-					</TouchableOpacity>	
-				</View>	
-				<View>
-					<TouchableOpacity style={styles.deckButton} onPress={() => console.log('pressed') }>
-						<Text style={styles.deckTitle}>udacicards</Text>
-						<Text style={styles.numberOfCards}>3 cards</Text>
-					</TouchableOpacity>	
-				</View>
-				<View>
-					<TouchableOpacity style={styles.deckButton} onPress={() => console.log('pressed') }>
-						<Text style={styles.deckTitle}>udacicards</Text>
-						<Text style={styles.numberOfCards}>3 cards</Text>
-					</TouchableOpacity>	
-				</View>
-				<View>
-					<TouchableOpacity style={styles.deckButton} onPress={() => console.log('pressed') }>
-						<Text style={styles.deckTitle}>udacicards</Text>
-						<Text style={styles.numberOfCards}>3 cards</Text>
-					</TouchableOpacity>	
-				</View>				
+				<TouchableOpacity style={styles.deckButton} onPress={() => console.log('pressed') }>
+					<Text style={styles.deckTitle}>{title}</Text>
+					{ questions.length <= 1 
+						? <Text style={styles.numberOfCards}>{questions.length} card</Text>
+						: <Text style={styles.numberOfCards}>{questions.length} cards</Text>
+					}					
+				</TouchableOpacity>			
 			</View>
 		);
 	}
@@ -66,6 +30,11 @@ const styles = StyleSheet.create({
   defaultView: {
     flex: 1,
     backgroundColor: whiteSmoke,
+	borderWidth: 5,
+	borderColor: steelBlue,
+	borderLeftWidth: 0,
+	borderRightWidth: 0,
+	borderRadius: 4
   },
   deckTitle: {
 	  fontSize: 34,
@@ -76,7 +45,7 @@ const styles = StyleSheet.create({
 	  textAlign: 'center',
   },
   deckButton: {
-	  padding: 36
+	  padding: 36,
   }
 });
 

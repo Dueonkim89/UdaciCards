@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, FlatList } from 'react-native';
 import { fetchInitialDeck, DECK_DATA_KEY } from '../utils/api.js';
 import { receiveDeck } from '../actions/index.js';
 import DeckListView from './DeckListView.js';
@@ -19,13 +19,21 @@ class Deck extends React.Component {
 					this.props.dispatch(receiveDeck(data));
 				})
 			})
-	}	
+	}
+
+	renderItem({item}) {
+		return <DeckListView {...item} />
+	}
 	
 	render() {
-		console.log(this.props.deck);
+		const { deck } = this.props;
+		console.log(deck);
 		return (
 			<View style={{flex: 1}}>
-				<DeckListView />
+				<FlatList data={deck} 
+					keyExtractor={(item) => item.title} 
+					renderItem={this.renderItem}
+				/>
 			</View>
 		);
 	}
