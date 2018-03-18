@@ -8,13 +8,15 @@ import { white, silver, black, steelBlue, whiteSmoke } from './utils/colors.js';
 import { Constants } from 'expo';
 import Deck from './components/Deck.js';
 import NewDeck from './components/NewDeck.js';
+import IndividualDeckView from './components/IndividualDeckView.js';
 import reducer from './reducers/index.js';
+import DeckListView from './components/DeckListView.js';
 
 const Tabs = TabNavigator({
 	Deck: {
 		screen: Deck,
 		navigationOptions: {
-			tabBarLabel: 'Deck',
+			tabBarLabel: 'Decks',
 			tabBarIcon: ({ tintColor }) => 	<MaterialCommunityIcons name='cards-outline' size={30} color={tintColor}/>
 		}					
 	},
@@ -46,6 +48,25 @@ const Tabs = TabNavigator({
 	}
 });
 
+const MainNavigator = StackNavigator({
+	Home: {
+		screen: Tabs,
+	},
+	IndividualDeckView: {
+		screen: IndividualDeckView,
+		navigationOptions: {
+			headerTintColor: whiteSmoke,
+			headerStyle: {
+				backgroundColor: silver
+			}	
+		}
+	},
+	DeckListView: {
+		screen: DeckListView
+	}
+	
+})
+
 const store = createStore(reducer);
 
 function TheStatusBar({ backgroundColor, ...props }) {
@@ -67,7 +88,7 @@ export default class App extends React.Component {
 			<Provider store={store}>
 				<View style={{flex: 1}}>
 					<TheStatusBar backgroundColor={steelBlue} barStyle='light-content'/>
-					<Tabs />
+					<MainNavigator />
 				</View>
 			</Provider>
 		);

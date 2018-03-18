@@ -7,9 +7,8 @@ import DeckListView from './DeckListView.js';
 
 
 class Deck extends React.Component {
-	
+
 	componentDidMount () {
-		console.log('in deck view');
 		fetchInitialDeck()
 			.then((deck) => {
 				//grab values of this returned object and turn into array
@@ -21,18 +20,15 @@ class Deck extends React.Component {
 			})
 	}
 
-	renderItem({item}) {
-		return <DeckListView {...item} />
-	}
-	
-	render() {
-		const { deck } = this.props;
-		console.log(deck);
+	render() {			
+		const { deck, navigation } = this.props;
 		return (
 			<View style={{flex: 1}}>
 				<FlatList data={deck} 
 					keyExtractor={(item) => item.title} 
-					renderItem={this.renderItem}
+					renderItem={({ item }) => (
+						<DeckListView {...item} navigation={navigation}/>
+					)}
 				/>
 			</View>
 		);
