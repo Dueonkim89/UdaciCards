@@ -7,8 +7,7 @@ class DeckListView extends React.Component {
 		console.log('Loaded DeckListView');
 	}
 	
-	render() {
-	
+	render() {	
 		const { questions, title, navigation } = this.props;
 		// make sure to include animation when touchableopacity is clicked!
 		//route to individual deck view
@@ -17,7 +16,7 @@ class DeckListView extends React.Component {
 				<TouchableOpacity style={styles.deckButton} 
 					onPress={() => navigation.navigate(
 						'IndividualDeckView',
-						{deckTitle: title, deckQuestions: questions}
+						{deckTitle: title}
 				)}>
 					<Text style={styles.deckTitle}>{title}</Text>
 					{ questions.length <= 1 
