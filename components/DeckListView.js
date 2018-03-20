@@ -17,7 +17,7 @@ class DeckListView extends React.Component {
 				<TouchableOpacity style={styles.deckButton} 
 					onPress={() => navigation.navigate(
 						'IndividualDeckView',
-						{deckTitle: title}
+						{deckTitle: title, deckQuestions: questions}
 				)}>
 					<Text style={styles.deckTitle}>{title}</Text>
 					{ questions.length <= 1 
