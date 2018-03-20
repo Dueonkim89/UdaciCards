@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { whiteSmoke, black, silver } from '../utils/colors.js';
+import { connect } from 'react-redux';
 
 class IndividualDeckView extends React.Component {
 	//this will allow us to customize certain features of navigation props
@@ -9,18 +10,15 @@ class IndividualDeckView extends React.Component {
 			title: navigation.state.params.deckTitle
 		}
 	}	
-	componentDidMount () {
-		console.log(this.props.navigation);
-	}
 	
 	render() {
-		const { navigation } = this.props;
+		const { navigation, specficDeck } = this.props;
 		return (
 			<View style={styles.container}>
 				<Text style={styles.deckTitle}>{navigation.state.params.deckTitle}</Text>
-					{ navigation.state.params.deckQuestions.length <= 1 
-						? <Text style={styles.numberOfCards}>{navigation.state.params.deckQuestions.length} card</Text>
-						: <Text style={styles.numberOfCards}>{navigation.state.params.deckQuestions.length} cards</Text>
+					{ specficDeck[0].questions.length <= 1 
+						? <Text style={styles.numberOfCards}>{specficDeck[0].questions.length} card</Text>
+						: <Text style={styles.numberOfCards}>{specficDeck[0].questions.length} cards</Text>
 					}
 				<View style={styles.buttonContainer}>	
 					<TouchableOpacity style={styles.addCardButton}>
@@ -84,4 +82,10 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default IndividualDeckView;
+function mapStateToProps(deck , { navigation }) {
+  return {
+    specficDeck: deck.filter( x => x.title === navigation.state.params.deckTitle )
+  }
+}
+
+export default connect(mapStateToProps)(IndividualDeckView);
