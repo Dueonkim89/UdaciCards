@@ -28,7 +28,7 @@ const defaultData = {
 	title: 'Redux',
     questions: [
       {
-        question: 'Redux only works with React and React-Native',
+        question: 'Redux only works with React and React-Native?',
         answer: 'False, Redux is agnostic to framework and can be used with Angular and Vue as well.'
       }
     ]	
