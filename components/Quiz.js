@@ -26,11 +26,14 @@ class Quiz extends React.Component {
 			<View style={{flex: 1, backgroundColor: whiteSmoke}}>
 				<Text style={styles.questionCounter}>{currentQuestion + 1} / {navigation.state.params.questions.length}</Text>
 				<View style={styles.container}>
-					<Text style={styles.question}>{navigation.state.params.questions[currentQuestion].question}</Text>
+					{ showAnswer 
+						? 	<Text style={styles.question}>{navigation.state.params.questions[		currentQuestion].answer}</Text>						
+						: 	<Text style={styles.question}>{navigation.state.params.questions[currentQuestion].question}</Text> 						
+					}
 					{ showAnswer 
 						? <TouchableOpacity><Text style={styles.answerButtonText}>Question</Text></TouchableOpacity> 
 						: <TouchableOpacity><Text style={styles.answerButtonText}>Answer</Text></TouchableOpacity> 
-					}
+					}					
 					<TouchableOpacity style={styles.correctButton}><Text style={styles.correctButtonText}>Correct</Text></TouchableOpacity>				
 					<TouchableOpacity style={styles.incorrectButton}><Text style={styles.incorrectButtonText}>Incorrect</Text></TouchableOpacity>						
 				</View>
