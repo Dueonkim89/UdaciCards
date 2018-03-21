@@ -21,22 +21,28 @@ class Quiz extends React.Component {
 
 	render() {		
 		const { navigation } = this.props;
-		const { currentQuestion, showAnswer } = this.state;
+		const { currentQuestion, showAnswer, score } = this.state;
 		return (
 			<View style={{flex: 1, backgroundColor: whiteSmoke}}>
-				<Text style={styles.questionCounter}>{currentQuestion + 1} / {navigation.state.params.questions.length}</Text>
-				<View style={styles.container}>
-					{ showAnswer 
-						? 	<Text style={styles.question}>{navigation.state.params.questions[		currentQuestion].answer}</Text>						
-						: 	<Text style={styles.question}>{navigation.state.params.questions[currentQuestion].question}</Text> 						
-					}
-					{ showAnswer 
-						? <TouchableOpacity><Text style={styles.answerButtonText}>Question</Text></TouchableOpacity> 
-						: <TouchableOpacity><Text style={styles.answerButtonText}>Answer</Text></TouchableOpacity> 
-					}					
-					<TouchableOpacity style={styles.correctButton}><Text style={styles.correctButtonText}>Correct</Text></TouchableOpacity>				
-					<TouchableOpacity style={styles.incorrectButton}><Text style={styles.incorrectButtonText}>Incorrect</Text></TouchableOpacity>						
-				</View>
+				{ currentQuestion >= navigation.state.params.questions.length 
+				  ?	<Text>You scored {score} out of {navigation.state.params.questions.length} questions 	correct!
+					</Text>
+				  : <View style={{flex: 1}}>
+					  <Text style={styles.questionCounter}>{currentQuestion + 1} / {navigation.state.params.questions.length}</Text>
+						<View style={styles.container}>
+							{ showAnswer 
+								? 	<Text style={styles.question}>{navigation.state.params.questions[		currentQuestion].answer}</Text>						
+								: 	<Text style={styles.question}>{navigation.state.params.questions[currentQuestion].question}</Text> 						
+							}
+							{ showAnswer 
+								? <TouchableOpacity><Text style={styles.answerButtonText}>Question</Text></TouchableOpacity> 
+								: <TouchableOpacity><Text style={styles.answerButtonText}>Answer</Text></TouchableOpacity> 
+							}					
+							<TouchableOpacity style={styles.correctButton}><Text style={styles.correctButtonText}>Correct</Text></TouchableOpacity>				
+							<TouchableOpacity style={styles.incorrectButton}><Text style={styles.incorrectButtonText}>Incorrect</Text></TouchableOpacity>						
+						</View>
+					</View>
+				}
 			</View>
 		);	
 	}
