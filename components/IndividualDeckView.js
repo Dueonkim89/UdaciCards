@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { whiteSmoke, black, silver } from '../utils/colors.js';
 import { connect } from 'react-redux';
 
@@ -14,7 +14,7 @@ class IndividualDeckView extends React.Component {
 	render() {
 		const { navigation, specficDeck } = this.props;
 		return (
-			<View style={styles.container}>
+			<ScrollView style={styles.container}>
 				<Text style={styles.deckTitle}>{navigation.state.params.deckTitle}</Text>
 					{ specficDeck[0].questions.length <= 1 
 						? <Text style={styles.numberOfCards}>{specficDeck[0].questions.length} card</Text>
@@ -32,7 +32,7 @@ class IndividualDeckView extends React.Component {
 						<Text style={styles.startQuizButtonText}>Start Quiz</Text>
 					</TouchableOpacity>	
 				</View>
-			</View>
+			</ScrollView>
 		);
 	}
 }

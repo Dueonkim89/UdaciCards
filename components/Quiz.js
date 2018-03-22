@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { whiteSmoke, red, green, black, silver } from '../utils/colors.js';
 
 class Quiz extends React.Component {
@@ -23,7 +23,7 @@ class Quiz extends React.Component {
 		const { navigation } = this.props;
 		const { currentQuestion, showAnswer, score } = this.state;
 		return (
-			<View style={{flex: 1, backgroundColor: whiteSmoke}}>
+			<ScrollView style={{flex: 1, backgroundColor: whiteSmoke}}>
 				{ currentQuestion >= navigation.state.params.questions.length 
 				  ?	<View style={styles.scoreContainer}>
 						<Text style={styles.scoreText}>You scored {score} out of {navigation.state.params.questions.length} correct!
@@ -62,10 +62,9 @@ class Quiz extends React.Component {
 						</View>
 					</View>
 				}
-			</View>
+			</ScrollView>
 		);	
-	}
-	
+	}	
 }
 
 const styles = StyleSheet.create({
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
 		marginLeft: 15
 	},
 	question: {
-		fontSize: 26,
+		fontSize: 22,
 		textAlign: 'center',
 	},
 	answerButtonText: {
