@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { whiteSmoke, red, green } from '../utils/colors.js';
+import { whiteSmoke, red, green, black, silver } from '../utils/colors.js';
 
 class Quiz extends React.Component {
 	static navigationOptions = ({ navigation }) => {	
@@ -25,21 +25,40 @@ class Quiz extends React.Component {
 		return (
 			<View style={{flex: 1, backgroundColor: whiteSmoke}}>
 				{ currentQuestion >= navigation.state.params.questions.length 
-				  ?	<Text>You scored {score} out of {navigation.state.params.questions.length} questions 	correct!
-					</Text>
+				  ?	<View style={styles.scoreContainer}>
+						<Text style={styles.scoreText}>You scored {score} out of {navigation.state.params.questions.length} correct!
+						</Text>
+						<View style={{flex: 1, marginTop: 95, justifyContent: 'center', alignItems: 'center'}}>
+							<TouchableOpacity style={styles.restartButton}>
+								<Text style={styles.restartText}>Restart Quiz</Text>
+							</TouchableOpacity>
+							<TouchableOpacity style={styles.deckButton}>
+								<Text style={styles.deckText}>Back to Deck</Text>
+							</TouchableOpacity>
+						</View>
+					</View>	
 				  : <View style={{flex: 1}}>
 					  <Text style={styles.questionCounter}>{currentQuestion + 1} / {navigation.state.params.questions.length}</Text>
 						<View style={styles.container}>
 							{ showAnswer 
-								? 	<Text style={styles.question}>{navigation.state.params.questions[		currentQuestion].answer}</Text>						
-								: 	<Text style={styles.question}>{navigation.state.params.questions[currentQuestion].question}</Text> 						
-							}
-							{ showAnswer 
-								? <TouchableOpacity><Text style={styles.answerButtonText}>Question</Text></TouchableOpacity> 
-								: <TouchableOpacity><Text style={styles.answerButtonText}>Answer</Text></TouchableOpacity> 
-							}					
-							<TouchableOpacity style={styles.correctButton}><Text style={styles.correctButtonText}>Correct</Text></TouchableOpacity>				
-							<TouchableOpacity style={styles.incorrectButton}><Text style={styles.incorrectButtonText}>Incorrect</Text></TouchableOpacity>						
+								? 	<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 65}}>
+										<Text style={styles.question}>{navigation.state.params.questions[currentQuestion].answer}</Text>	
+										<TouchableOpacity>
+											<Text style={styles.answerButtonText}>Question</Text>
+										</TouchableOpacity> 										
+									</View>
+								: 	<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 65}}>								
+										<Text style={styles.question}>{navigation.state.params.questions[currentQuestion].question}</Text> 
+										<TouchableOpacity>
+											<Text style={styles.answerButtonText}>Answer</Text>
+										</TouchableOpacity>
+									</View> 										
+							}															
+							<View style={{marginTop: 25, flex: 1}}>	
+								{/* Wrap buttons in view to have them be the same size*/}
+								<TouchableOpacity style={styles.correctButton}><Text style={styles.correctButtonText}>Correct</Text></TouchableOpacity>				
+								<TouchableOpacity style={styles.incorrectButton}><Text style={styles.incorrectButtonText}>Incorrect</Text></TouchableOpacity>
+							</View>
 						</View>
 					</View>
 				}
@@ -67,8 +86,8 @@ const styles = StyleSheet.create({
 	answerButtonText: {
 		color: red,
 		fontSize: 16,
-		marginTop: 12,
-		marginBottom: 38		
+		marginTop: 20,
+		marginBottom: 5		
 	},
 	correctButton: {
 		marginBottom: 16,
@@ -96,7 +115,41 @@ const styles = StyleSheet.create({
 	incorrectButtonText: {
 		fontSize: 18,	
 		color: whiteSmoke		
-	}	
+	},
+	scoreContainer: {
+		flex: 1, 
+		marginTop: 34
+	},
+	scoreText: {
+		textAlign: 'center',
+		fontSize: 22,		
+	},
+	restartButton: {
+		marginBottom: 16,
+		borderColor: black,
+		padding: 20,
+		paddingLeft: 75,
+		paddingRight: 75,		
+		borderRadius: 5,
+		borderWidth: 2		
+	},
+	restartText: {
+		fontSize: 22,
+		color: black		
+	},
+	deckButton: {
+		borderColor: silver,
+		backgroundColor: silver,
+		padding: 20,
+		paddingLeft: 75,
+		paddingRight: 75,
+		borderRadius: 5,	
+		borderWidth: 2		
+	},
+	deckText: {
+		fontSize: 22,	
+		color: whiteSmoke		
+	}
 });
 
 
