@@ -14,7 +14,13 @@ class Quiz extends React.Component {
 		score: 0,
 		showAnswer: false
 	}
-
+	
+	toggleAnswer = () => {
+		//toggle showAnswer true and false
+		const { showAnswer } = this.state;
+		this.setState({ showAnswer: !showAnswer });
+	}
+	
 	componentDidMount () {
 		console.log(this.props.navigation);
 	}
@@ -43,18 +49,18 @@ class Quiz extends React.Component {
 							{ showAnswer 
 								? 	<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 65}}>
 										<Text style={styles.question}>{navigation.state.params.questions[currentQuestion].answer}</Text>	
-										<TouchableOpacity>
+										<TouchableOpacity onPress={this.toggleAnswer} >
 											<Text style={styles.answerButtonText}>Question</Text>
 										</TouchableOpacity> 										
 									</View>
 								: 	<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 65}}>								
 										<Text style={styles.question}>{navigation.state.params.questions[currentQuestion].question}</Text> 
-										<TouchableOpacity>
+										<TouchableOpacity onPress={this.toggleAnswer} >
 											<Text style={styles.answerButtonText}>Answer</Text>
 										</TouchableOpacity>
 									</View> 										
 							}															
-							<View style={{marginTop: 25, flex: 1}}>	
+							<View style={{marginTop: 65, flex: 1}}>	
 								{/* Wrap buttons in view to have them be the same size*/}
 								<TouchableOpacity style={styles.correctButton}><Text style={styles.correctButtonText}>Correct</Text></TouchableOpacity>				
 								<TouchableOpacity style={styles.incorrectButton}><Text style={styles.incorrectButtonText}>Incorrect</Text></TouchableOpacity>
@@ -85,8 +91,7 @@ const styles = StyleSheet.create({
 	answerButtonText: {
 		color: red,
 		fontSize: 16,
-		marginTop: 20,
-		marginBottom: 5		
+		marginTop: 20,	
 	},
 	correctButton: {
 		marginBottom: 16,
