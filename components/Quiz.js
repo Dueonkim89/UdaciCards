@@ -44,10 +44,6 @@ class Quiz extends React.Component {
 		this.setState({ showAnswer: false, currentQuestion: 0, score: 0 });		
 	}
 	
-	componentDidMount () {
-		console.log(this.props.navigation);
-	}
-
 	render() {		
 		const { navigation } = this.props;
 		const { currentQuestion, showAnswer, score } = this.state;
@@ -63,7 +59,9 @@ class Quiz extends React.Component {
 							>
 								<Text style={styles.restartText}>Restart Quiz</Text>
 							</TouchableOpacity>
-							<TouchableOpacity style={styles.deckButton}>
+							<TouchableOpacity style={styles.deckButton}
+								onPress={() => navigation.goBack()}
+							>
 								<Text style={styles.deckText}>Back to Deck</Text>
 							</TouchableOpacity>
 						</View>

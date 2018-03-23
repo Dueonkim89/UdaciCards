@@ -3,10 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { whiteSmoke, steelBlue } from '../utils/colors.js';
 
 class DeckListView extends React.Component {	
-	componentDidMount () {
-		console.log('Loaded DeckListView');
-	}
-	
+
 	render() {	
 		const { questions, title, navigation } = this.props;
 		// make sure to include animation when touchableopacity is clicked!
