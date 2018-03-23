@@ -29,12 +29,16 @@ class Quiz extends React.Component {
 	}
 	
 	nextQuestion = () => {
+		const { showAnswer } = this.state;
 		this.setState((prevState) => ({
 			currentQuestion: prevState.currentQuestion + 1
 		}))	
-		this.toggleAnswerAndQuestion();	
+		
+		if (showAnswer) {
+			this.toggleAnswerAndQuestion();	
+		}		
 	}
-	
+		
 	componentDidMount () {
 		console.log(this.props.navigation);
 	}
@@ -49,7 +53,9 @@ class Quiz extends React.Component {
 						<Text style={styles.scoreText}>You scored {score} out of {navigation.state.params.questions.length} correct!
 						</Text>
 						<View style={{flex: 1, marginTop: 115, justifyContent: 'center', alignItems: 'center'}}>
-							<TouchableOpacity style={styles.restartButton}>
+							<TouchableOpacity style={styles.restartButton}
+							
+							>
 								<Text style={styles.restartText}>Restart Quiz</Text>
 							</TouchableOpacity>
 							<TouchableOpacity style={styles.deckButton}>
