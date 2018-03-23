@@ -38,7 +38,12 @@ class Quiz extends React.Component {
 			this.toggleAnswerAndQuestion();	
 		}		
 	}
-		
+
+	restartQuiz = () => {		
+		const { showAnswer, currentQuestion, score } = this.state;
+		this.setState({ showAnswer: false, currentQuestion: 0, score: 0 });		
+	}
+	
 	componentDidMount () {
 		console.log(this.props.navigation);
 	}
@@ -54,7 +59,7 @@ class Quiz extends React.Component {
 						</Text>
 						<View style={{flex: 1, marginTop: 115, justifyContent: 'center', alignItems: 'center'}}>
 							<TouchableOpacity style={styles.restartButton}
-							
+								onPress={this.restartQuiz}
 							>
 								<Text style={styles.restartText}>Restart Quiz</Text>
 							</TouchableOpacity>
