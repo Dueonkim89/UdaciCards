@@ -15,10 +15,24 @@ class Quiz extends React.Component {
 		showAnswer: false
 	}
 	
-	toggleAnswer = () => {
+	toggleAnswerAndQuestion = () => {
 		//toggle showAnswer true and false
 		const { showAnswer } = this.state;
 		this.setState({ showAnswer: !showAnswer });
+	}
+	
+	correctAnswer = () => {
+		this.setState((prevState) => ({
+			score: prevState.score + 1
+		}))
+		this.nextQuestion();
+	}
+	
+	nextQuestion = () => {
+		this.setState((prevState) => ({
+			currentQuestion: prevState.currentQuestion + 1
+		}))	
+		this.toggleAnswerAndQuestion();	
 	}
 	
 	componentDidMount () {
@@ -34,7 +48,7 @@ class Quiz extends React.Component {
 				  ?	<View style={styles.scoreContainer}>
 						<Text style={styles.scoreText}>You scored {score} out of {navigation.state.params.questions.length} correct!
 						</Text>
-						<View style={{flex: 1, marginTop: 95, justifyContent: 'center', alignItems: 'center'}}>
+						<View style={{flex: 1, marginTop: 115, justifyContent: 'center', alignItems: 'center'}}>
 							<TouchableOpacity style={styles.restartButton}>
 								<Text style={styles.restartText}>Restart Quiz</Text>
 							</TouchableOpacity>
@@ -49,21 +63,29 @@ class Quiz extends React.Component {
 							{ showAnswer 
 								? 	<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 65}}>
 										<Text style={styles.question}>{navigation.state.params.questions[currentQuestion].answer}</Text>	
-										<TouchableOpacity onPress={this.toggleAnswer} >
+										<TouchableOpacity onPress={this.toggleAnswerAndQuestion} >
 											<Text style={styles.answerButtonText}>Question</Text>
 										</TouchableOpacity> 										
 									</View>
 								: 	<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 65}}>								
 										<Text style={styles.question}>{navigation.state.params.questions[currentQuestion].question}</Text> 
-										<TouchableOpacity onPress={this.toggleAnswer} >
+										<TouchableOpacity onPress={this.toggleAnswerAndQuestion} >
 											<Text style={styles.answerButtonText}>Answer</Text>
 										</TouchableOpacity>
 									</View> 										
 							}															
 							<View style={{marginTop: 65, flex: 1}}>	
 								{/* Wrap buttons in view to have them be the same size*/}
-								<TouchableOpacity style={styles.correctButton}><Text style={styles.correctButtonText}>Correct</Text></TouchableOpacity>				
-								<TouchableOpacity style={styles.incorrectButton}><Text style={styles.incorrectButtonText}>Incorrect</Text></TouchableOpacity>
+								<TouchableOpacity style={styles.correctButton} 
+									onPress={this.correctAnswer}
+								>
+									<Text style={styles.correctButtonText}>Correct</Text>
+								</TouchableOpacity>				
+								<TouchableOpacity style={styles.incorrectButton}
+									onPress={this.nextQuestion}
+								>
+									<Text style={styles.incorrectButtonText}>Incorrect</Text>
+								</TouchableOpacity>
 							</View>
 						</View>
 					</View>
