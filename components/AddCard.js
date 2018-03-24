@@ -2,16 +2,29 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 
 class AddCard extends React.Component {
+	static navigationOptions = ({ navigation }) => {	
+		return {
+			title: 'Add Card'
+		}
+	}	
+
+	state = {
+		question: null,
+		answer: null,
+		dataInAS: null,
+		deckTitle: null
+	}
 	
 	componentDidMount () {
-		console.log('Loaded New Deck view');
-		console.log(this.props.navigation.state.params.deckTitle); 
+		const { navigation } = this.props;
+		console.log('AddCard');
+		this.setState({ deckTitle: navigation.state.params.deckTitle });
 	}
 	
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>This is the AddCard component!!</Text>
+				<Text>We will add a card for {this.props.navigation.state.params.deckTitle} deck</Text>
 			</View>
 		);
 	}
