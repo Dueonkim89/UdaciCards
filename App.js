@@ -12,6 +12,7 @@ import IndividualDeckView from './components/IndividualDeckView.js';
 import reducer from './reducers/index.js';
 import DeckListView from './components/DeckListView.js';
 import Quiz from './components/Quiz.js';
+import AddCard from './components/AddCard.js';
 
 const Tabs = TabNavigator({
 	Deck: {
@@ -73,7 +74,16 @@ const MainNavigator = StackNavigator({
 				backgroundColor: silver
 			}	
 		}		
-	}	
+	},
+	AddCard: {
+		screen: AddCard,
+		navigationOptions: {
+			headerTintColor: whiteSmoke,
+			headerStyle: {
+				backgroundColor: silver
+			}	
+		}		
+	}
 })
 
 const store = createStore(reducer);
