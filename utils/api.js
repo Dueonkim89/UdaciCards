@@ -28,25 +28,29 @@ const defaultData = {
 	title: 'Redux',
     questions: [
       {
-        question: 'Redux only works with React and React-Native?',
+        question: 'Does Redux only work with React and React-Native?',
         answer: 'False, Redux is agnostic to framework and can be used with Angular and Vue as well.'
       }
     ]	
   }
 }
 
-export function fetchInitialDeck() {
+export function fetchDeck() {
 	return AsyncStorage.getItem(DECK_DATA_KEY)
 		.then((data) => { if (data === null) {
-			storeDefaultData();	
+			storeData();	
 			return defaultData;
 		} else {
 			return JSON.parse(data);
 		}})				
 }
 
-function storeDefaultData() {
-	AsyncStorage.setItem(DECK_DATA_KEY, JSON.stringify(defaultData));
+function storeData(updatedData) {
+	if (updatedData === undefined) {
+		AsyncStorage.setItem(DECK_DATA_KEY, JSON.stringify(defaultData));
+	} else {
+		AsyncStorage.setItem(DECK_DATA_KEY, JSON.stringify(updatedData));
+	}	
 }
 
 function deleteData() {

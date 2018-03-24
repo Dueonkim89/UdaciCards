@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, AsyncStorage, FlatList } from 'react-native';
-import { fetchInitialDeck, DECK_DATA_KEY } from '../utils/api.js';
+import { fetchDeck } from '../utils/api.js';
 import { receiveDeck } from '../actions/index.js';
 import DeckListView from './DeckListView.js';
 
@@ -9,7 +9,7 @@ import DeckListView from './DeckListView.js';
 class Deck extends React.Component {
 
 	componentDidMount () {
-		fetchInitialDeck()
+		fetchDeck()
 			.then((deck) => {
 				//grab values of this returned object and turn into array
 				const deckToArrayFormat = Object.values(deck);
