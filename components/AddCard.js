@@ -5,6 +5,7 @@ class AddCard extends React.Component {
 	
 	componentDidMount () {
 		console.log('Loaded New Deck view');
+		console.log(this.props.navigation.state.params.deckTitle); 
 	}
 	
 	render() {

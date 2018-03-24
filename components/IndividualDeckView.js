@@ -21,7 +21,11 @@ class IndividualDeckView extends React.Component {
 						: <Text style={styles.numberOfCards}>{specficDeck[0].questions.length} cards</Text>
 					}
 				<View style={styles.buttonContainer}>	
-					<TouchableOpacity style={styles.addCardButton}>
+					<TouchableOpacity style={styles.addCardButton}
+						onPress={() => navigation.navigate(
+							'AddCard',
+							{ deckTitle: specficDeck[0].title }
+					)}>
 						<Text style={styles.addCardButtonText}>Add Card</Text>
 					</TouchableOpacity>	
 					<TouchableOpacity style={styles.startQuizButton} 
