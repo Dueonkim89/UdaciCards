@@ -2,7 +2,7 @@ import React from 'react';
 import { addQuestion } from '../actions/index.js';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { fetchDeck, storeData, deleteData } from '../utils/api.js';
-import { steelBlue, black, silver, red } from '../utils/colors.js';
+import { steelBlue, black, silver, red, whiteSmoke } from '../utils/colors.js';
 import { connect } from 'react-redux';
 
 class AddCard extends React.Component {
@@ -92,7 +92,7 @@ class AddCard extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',		
+		backgroundColor: whiteSmoke,		
 	},
 	textInput: {	
 		marginTop: 30,
