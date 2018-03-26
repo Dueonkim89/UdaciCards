@@ -2,7 +2,7 @@ import React from 'react';
 import { addQuestion } from '../actions/index.js';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { fetchDeck, storeData, deleteData } from '../utils/api.js';
-import { steelBlue, black, silver } from '../utils/colors.js';
+import { steelBlue, black, silver, red } from '../utils/colors.js';
 import { connect } from 'react-redux';
 
 class AddCard extends React.Component {
@@ -13,34 +13,41 @@ class AddCard extends React.Component {
 	}	
 
 	state = {
-		question: null,
-		answer: null,
+		question: '',
+		answer: '',
 		dataInAS: null,
-		deckTitle: null
+		deckTitle: null,
+		empty: false
 	}
 	
 	submitQuestionAndAnswer = () => {
 		const { question, answer, dataInAS, deckTitle } = this.state;
 		const { navigation } = this.props;
-		//data with necessary info
-		const newQuestionAndAnswer = {
-			question,
-			answer,
-			title: deckTitle
-		};
-		//need to update Redux store with data
-		//NOTE: you do not have access to props.dispatch until component is CONNECTED TO REDUX
-		this.props.dispatch(addQuestion(newQuestionAndAnswer));
-		//update AsyncStorage
-		deleteData()
-		//NOTE: to chain .then() and get back a promise. Function being invoked MUST RETURN SOMETHING
-			.then(() => {
-				//pure way to add question and answer to data object in state.dataInAS and send to AS
-				const updatedData = {...dataInAS, [deckTitle]: { ...dataInAS[deckTitle], questions: [...dataInAS[deckTitle].questions, {question, answer}]}};
-				storeData(updatedData);
-			})
-		//navigate back 
-		navigation.goBack();
+		if (question === '' || answer === '') {
+			this.setState({ empty: true });	
+		} else {
+			//data with necessary info
+			const newQuestionAndAnswer = {
+				question,
+				answer,
+				title: deckTitle
+			};
+			//need to update Redux store with data
+			//NOTE: you do not have access to props.dispatch until component is CONNECTED TO REDUX
+			this.props.dispatch(addQuestion(newQuestionAndAnswer));
+			//update AsyncStorage
+			deleteData()
+			//NOTE: to chain .then() and get back a promise. Function being invoked MUST RETURN SOMETHING
+				.then(() => {
+					//pure way to add question and answer to data object in state.dataInAS and send to AS
+					const updatedData = {...dataInAS, [deckTitle]: { ...dataInAS[deckTitle], questions: [...dataInAS[deckTitle].questions, {question, answer}]}};
+					storeData(updatedData);
+				})
+			// set state.empty to false
+			this.setState({ empty: false });	
+			//navigate back 
+			navigation.goBack();			
+		}
 	}
 	
 	componentDidMount () {
@@ -53,7 +60,7 @@ class AddCard extends React.Component {
 	}
 	
 	render() {
-		const { deckTitle, dataInAS, question, answer } = this.state;
+		const { deckTitle, dataInAS, question, answer, empty } = this.state;
 		return (
 			<View style={styles.container}>
 				<TextInput style={styles.textInput}
@@ -68,6 +75,8 @@ class AddCard extends React.Component {
 					placeholder='Enter answer here.' value={answer}
 					onChangeText={(text) => this.setState({answer: text})}
 				/>
+				{ empty && <Text style={styles.warningMessage}>Please fill the above!</Text> }
+								
 				<View style={styles.buttonView}>
 					<TouchableOpacity style={styles.submitButton} 
 						onPress={this.submitQuestionAndAnswer}
@@ -117,6 +126,13 @@ const styles = StyleSheet.create({
 		fontSize: 22,	
 		color: silver,
 		fontWeight: 'bold'
+	},
+	warningMessage: {
+		color: red,
+		fontWeight: 'bold',
+		fontSize: 22,
+		marginTop: 24,
+		textAlign: 'center',
 	}
 });
 
