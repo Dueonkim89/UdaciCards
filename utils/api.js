@@ -45,15 +45,11 @@ export function fetchDeck() {
 		}})				
 }
 
-function storeData(updatedData) {
-	if (updatedData === undefined) {
-		AsyncStorage.setItem(DECK_DATA_KEY, JSON.stringify(defaultData));
-	} else {
-		AsyncStorage.setItem(DECK_DATA_KEY, JSON.stringify(updatedData));
-	}	
+export function storeData(updatedData) {
+	updatedData === undefined ? AsyncStorage.setItem(DECK_DATA_KEY, JSON.stringify(defaultData)) : AsyncStorage.setItem(DECK_DATA_KEY, JSON.stringify(updatedData))
 }
 
-function deleteData() {
-	AsyncStorage.removeItem(DECK_DATA_KEY)
+export function deleteData() {
+	return AsyncStorage.removeItem(DECK_DATA_KEY);
 }
 
