@@ -2,12 +2,22 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { steelBlue, black, silver, red, whiteSmoke } from '../utils/colors.js';
+import { fetchDeck, storeData, deleteData } from '../utils/api.js';
 
 
 class NewDeck extends React.Component {
+	state = {
+		dataInAS: null,
+		title: null,
+		empty: false
+	}
 	
 	componentDidMount () {
-		console.log('Loaded New Deck view');
+		fetchDeck()
+			.then((decks) => {
+				//set state for dataInAS & deckTitle
+				this.setState({ dataInAS: decks });
+			})		
 	}
 	
 	render() {
@@ -20,7 +30,9 @@ class NewDeck extends React.Component {
 					placeholder='Enter new title here.'
 				/>
 				<View style={styles.buttonView}>
-					<TouchableOpacity style={styles.submitButton}>
+					<TouchableOpacity style={styles.submitButton}
+					
+					>
 						<Text style={styles.submitButtonText}>Submit</Text>
 					</TouchableOpacity>
 				</View>
