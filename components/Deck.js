@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, AsyncStorage, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import { fetchDeck } from '../utils/api.js';
 import { receiveDeck } from '../actions/index.js';
 import DeckListView from './DeckListView.js';

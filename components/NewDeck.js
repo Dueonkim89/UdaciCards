@@ -26,7 +26,6 @@ class NewDeck extends React.Component {
 		const { navigation, dispatch } = this.props;
 		//check if title field is empty
 		if (title === '') {
-			console.log('title field is empty');
 			this.setState({ empty: true });	
 		} else {		
 			const newDeckTitle = {
@@ -39,7 +38,8 @@ class NewDeck extends React.Component {
 				.then(() => {
 					const updatedData = { ...dataInAS, [title]: {title, questions: []} }				
 					storeData(updatedData);
-				})	
+				})
+			this.setState({ empty: false });			
 			// route to IndividualDeck			
 			navigation.navigate(
 				'IndividualDeckView',
@@ -60,6 +60,7 @@ class NewDeck extends React.Component {
 					value={title}
 					onChangeText={(text) => this.setState({title: text})}
 				/>
+				{ empty && <Text style={styles.warningMessage}>Please enter a title for your deck!</Text> }
 				<View style={styles.buttonView}>
 					<TouchableOpacity style={styles.submitButton}
 						onPress={this.createNewDeck}
@@ -116,6 +117,13 @@ const styles = StyleSheet.create({
 		paddingRight: 75,
 		borderRadius: 5,	
 		borderWidth: 2,	
+	},
+	warningMessage: {
+		color: red,
+		fontWeight: 'bold',
+		fontSize: 25,
+		marginTop: 32,
+		textAlign: 'center',
 	}	
 });
 
