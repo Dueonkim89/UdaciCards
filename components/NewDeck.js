@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-nativ
 import { connect } from 'react-redux';
 import { steelBlue, black, silver, red, whiteSmoke } from '../utils/colors.js';
 import { fetchDeck, storeData, deleteData } from '../utils/api.js';
+import { addDeck } from '../actions/index.js';
 
 
 class NewDeck extends React.Component {
@@ -21,11 +22,34 @@ class NewDeck extends React.Component {
 	}
 	
 	createNewDeck = () => {
-		console.log('creating new deck');
+		const { title, dataInAS } = this.state;
+		const { navigation, dispatch } = this.props;
+		//check if title field is empty
+		if (title === '') {
+			console.log('title field is empty');
+			this.setState({ empty: true });	
+		} else {		
+			const newDeckTitle = {
+				title
+			}
+			//update redux store	
+			dispatch(addDeck(newDeckTitle));	
+			//update data in AS
+			deleteData()
+				.then(() => {
+					const updatedData = { ...dataInAS, [title]: {title, questions: []} }				
+					storeData(updatedData);
+				})	
+			// route to IndividualDeck			
+			navigation.navigate(
+				'IndividualDeckView',
+				{deckTitle: title}
+			)			
+		}					
 	}
 	
 	render() {
-		const { title } = this.state;
+		const { title, empty } = this.state;
 		return (
 			<View style={styles.container}>
 				<Text style={styles.title}>What is the title of your new deck?</Text>
