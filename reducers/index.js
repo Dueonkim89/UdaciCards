@@ -1,4 +1,4 @@
-import { RECEIVE_DECK, ADD_QUESTION } from '../actions/index.js';
+import { RECEIVE_DECK, ADD_QUESTION, ADD_DECK } from '../actions/index.js';
 
 function deck(state = [], action) {
 	const { title, questions, question, answer } = action;
@@ -28,6 +28,13 @@ function deck(state = [], action) {
 		updatedDeck.splice(deckPosition, 0, ...deckToAddQuestion);
 		//return the updatedDeck
 		return updatedDeck;
+	} else if (action.type === ADD_DECK) {
+		return [
+			...state,
+			{ title,
+				questions: []
+			}
+		]		
 	} else {
 		return state;
 	}

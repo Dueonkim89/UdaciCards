@@ -8,19 +8,24 @@ import { fetchDeck, storeData, deleteData } from '../utils/api.js';
 class NewDeck extends React.Component {
 	state = {
 		dataInAS: null,
-		title: null,
+		title: '',
 		empty: false
 	}
 	
 	componentDidMount () {
 		fetchDeck()
 			.then((decks) => {
-				//set state for dataInAS & deckTitle
+				//set state for dataInAS
 				this.setState({ dataInAS: decks });
 			})		
 	}
 	
+	createNewDeck = () => {
+		console.log('creating new deck');
+	}
+	
 	render() {
+		const { title } = this.state;
 		return (
 			<View style={styles.container}>
 				<Text style={styles.title}>What is the title of your new deck?</Text>
@@ -28,10 +33,12 @@ class NewDeck extends React.Component {
 					underlineColorAndroid={'transparent'}
 					placeholderTextColor={silver}
 					placeholder='Enter new title here.'
+					value={title}
+					onChangeText={(text) => this.setState({title: text})}
 				/>
 				<View style={styles.buttonView}>
 					<TouchableOpacity style={styles.submitButton}
-					
+						onPress={this.createNewDeck}
 					>
 						<Text style={styles.submitButtonText}>Submit</Text>
 					</TouchableOpacity>
