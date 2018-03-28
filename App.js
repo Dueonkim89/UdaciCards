@@ -13,6 +13,7 @@ import reducer from './reducers/index.js';
 import DeckListView from './components/DeckListView.js';
 import Quiz from './components/Quiz.js';
 import AddCard from './components/AddCard.js';
+import { setNotification } from './utils/api.js';
 
 const Tabs = TabNavigator({
 	Deck: {
@@ -99,6 +100,7 @@ function TheStatusBar({ backgroundColor, ...props }) {
 export default class App extends React.Component {
 	componentDidMount() {
 		//method to invoke Notification to reminder app user to study to be built here. 
+		setNotification();
 		console.log('in App component');
 	}
 	

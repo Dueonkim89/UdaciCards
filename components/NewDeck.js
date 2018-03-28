@@ -36,7 +36,7 @@ class NewDeck extends React.Component {
 			//update data in AS
 			deleteData()
 				.then(() => {
-					const updatedData = { ...dataInAS, [title]: {title, questions: []} }				
+					const updatedData = { ...dataInAS, [title]: {title, questions: []} };				
 					storeData(updatedData);
 				})
 			this.setState({ empty: false });			
