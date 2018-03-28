@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { whiteSmoke, black, silver } from '../utils/colors.js';
 import { connect } from 'react-redux';
+import { clearNotification, setNotification } from '../utils/api.js';
 
 class IndividualDeckView extends React.Component {
 	//this will allow us to customize certain features of navigation props
@@ -10,6 +11,16 @@ class IndividualDeckView extends React.Component {
 			title: navigation.state.params.deckTitle
 		}
 	}	
+	
+	startQuiz = () => {
+		const { navigation, specficDeck } = this.props;
+		navigation.navigate(
+			'Quiz',
+			{questions: specficDeck[0].questions}
+		)
+		clearNotification()
+			.then(setNotification);		
+	}
 	
 	render() {
 		const { navigation, specficDeck } = this.props;
@@ -29,10 +40,8 @@ class IndividualDeckView extends React.Component {
 						<Text style={styles.addCardButtonText}>Add Card</Text>
 					</TouchableOpacity>	
 					<TouchableOpacity style={styles.startQuizButton} 
-						onPress={() => navigation.navigate(
-							'Quiz',
-							{questions: specficDeck[0].questions}
-					)}>
+						onPress={this.startQuiz}
+					>
 						<Text style={styles.startQuizButtonText}>Start Quiz</Text>
 					</TouchableOpacity>	
 				</View>
