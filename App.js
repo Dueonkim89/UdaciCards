@@ -14,6 +14,7 @@ import DeckListView from './components/DeckListView.js';
 import Quiz from './components/Quiz.js';
 import AddCard from './components/AddCard.js';
 import { setNotification } from './utils/api.js';
+import TransitionConfig from './utils/TransitionConfig.js';
 
 const Tabs = TabNavigator({
 	Deck: {
@@ -51,6 +52,7 @@ const Tabs = TabNavigator({
 	}
 });
 
+
 const MainNavigator = StackNavigator({
 	Home: {
 		screen: Tabs,
@@ -85,6 +87,9 @@ const MainNavigator = StackNavigator({
 			}	
 		}		
 	}
+},{
+    initialRouteParams: { transition: 'fade' },
+    transitionConfig: TransitionConfig
 })
 
 const store = createStore(reducer);
@@ -101,7 +106,6 @@ export default class App extends React.Component {
 	componentDidMount() {
 		//method to invoke Notification to reminder app user to study to be built here. 
 		setNotification();
-		console.log('in App component');
 	}
 	
 	render() {

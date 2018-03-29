@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import { whiteSmoke, black, silver } from '../utils/colors.js';
 import { connect } from 'react-redux';
 import { clearNotification, setNotification } from '../utils/api.js';
@@ -11,13 +11,14 @@ class IndividualDeckView extends React.Component {
 			title: navigation.state.params.deckTitle
 		}
 	}	
-	
+			
 	startQuiz = () => {
 		const { navigation, specficDeck } = this.props;
 		navigation.navigate(
 			'Quiz',
 			{questions: specficDeck[0].questions}
 		)
+		//if quiz is taken, clear notification and reset for tmrw at 12PM. 
 		clearNotification()
 			.then(setNotification);		
 	}

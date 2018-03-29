@@ -1,9 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native';
 import { whiteSmoke, steelBlue } from '../utils/colors.js';
 
 class DeckListView extends React.Component {	
 
+	routeToDeck = () => {
+		const { navigation, title } = this.props;
+		//route to IndividualDeckView component, add transition effect of vertical
+		navigation.navigate(
+			'IndividualDeckView',
+			{deckTitle: title, transition: 'vertical'}
+		)		
+	}	
+	
 	render() {	
 		const { questions, title, navigation } = this.props;
 		// make sure to include animation when touchableopacity is clicked!
@@ -11,14 +20,12 @@ class DeckListView extends React.Component {
 		return (
 			<View style={styles.defaultView}>
 				<TouchableOpacity style={styles.deckButton} 
-					onPress={() => navigation.navigate(
-						'IndividualDeckView',
-						{deckTitle: title}
-				)}>
-					<Text style={styles.deckTitle}>{title}</Text>
+					onPress={this.routeToDeck}
+				>
+					<Animated.Text style={[styles.deckTitle]}>{title}</Animated.Text>
 					{ questions.length <= 1 
-						? <Text style={styles.numberOfCards}>{questions.length} card</Text>
-						: <Text style={styles.numberOfCards}>{questions.length} cards</Text>
+						? <Animated.Text style={[styles.numberOfCards]}>{questions.length} card</Animated.Text>
+						: <Animated.Text style={[styles.numberOfCards]}>{questions.length} cards</Animated.Text>
 					}					
 				</TouchableOpacity>			
 			</View>
